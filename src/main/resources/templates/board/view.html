@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:insert="~{/css/header :: nav}"></div>
+<form id="boardForm">
+    <table align="center">
+        <Tr>
+            <td>글종류</td>
+            <td><span th:text="${view.b"></span></td>
+        </Tr>
+        <tr>
+            <td>글쓴이</td>
+            <td><span th:text="${view.member.name}"></span>
+                <input type="hidden" th:value="${view.boardIdx}" name="boardIdx"> </td>
+        </tr>
+        <tr>
+            <td>제목</td>
+            <td th:text="${view.title}"></td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td th:text="${view.content}"></td>
+        </tr>
+        <tr>
+            <td>첨부파일</td>
+        </tr>
+        <tr th:each="file:${view.files}">
+            <td>
+                <a href="/attach/" th:href="@{|/files/${file.filepath}|}" download>
+                    <img th:if="${file.uploadname.endsWith('.jpg') or file.uploadname.endsWith('.png')}" th:src="@{|/files/${file.filepath}|}" width="100px" height="100px" >
+                    <span th:unless="${file.uploadname.endsWith('.jpg') or file.uploadname.endsWith('.png')}" th:text="${'💾'+file.realfilename}"></span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="수정" onclick="modifyBoard()">
+                <input type="button" value="삭제" onclick="deleteBoard()">
+                <input type="button" value="목록으로" onclick="location.href='/board/board'">
+            </td>
+        </tr>
+    </table>
+</form>
+<div id="comment-write" align="center">
+    <input type="text" id="commentWriter" th:if="${view.member.name!=null}"
+           th:value="${view.member.name}" name="userid" disabled>
+    <input type="text" id="commentContents" placeholder="내용" name="content">
+    <button id="comment-write-btn" >댓글작성</button>
+</div>
+<div align="center">
+    <table>
+        <tr>
+            <td>작성자</td>
+            <td align="center" width="60%">댓글 내용</td>
+            <td></td>
+        </tr>
+        <tr th:each="c:${comment}">
+            <td><span th:text="${c.userid}" ></span>
+                <input type="hidden" th:value="${c.commentIdx}" th:id="'cidx'+${c.commentIdx}" name="commentIdx"></td>
+            <td id="content"><span th:text="${c.content}" ></span></td>
+            <td id="mod">
+                <input type="button" value="수정" name="modify" class="modifyBtn" th:id="'modify'+${c.commentIdx}" ></td>
+            <td id="del"><input type="button" value="삭제" name="delete" ></td>
+            <td id="inputtd" style="display:none">
+                <input type="text" th:value="${c.content}" name="content" th:id="'content'+${c.commentIdx}">
+            </td>
+            <td id="modifytd" style="display:none">
+                <input type="button" value="수정완료" class="modifyOK" th:id="'modifyOK'+${c.commentIdx}">
+                <input type="button" value="수정취소" class="cancelModify" th:id="'cancelModify'+${c.commentIdx}">
+            </td>
+        </tr>
+    </table>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            // 수정 버튼 클릭 시
+            $('.modifyBtn').on("click", function(){
+                var tr = $(this).closest('tr');
+                var commentIdx = tr.find('[name="commentIdx"]').val();
+                tr.find('#content').hide();
+                tr.find('#mod').hide();
+                tr.find('#del').hide();
+                tr.find('#modifytd').show();
+                tr.find('#inputtd').show();
+
+                // 수정 완료 버튼 클릭 시
+                $('#modifyOK' + commentIdx).off("click").on("click", function() {
+                    var content = tr.find('[name="content"]').val();
+                    var boardidx = [[${view.boardIdx}]];
+                    var datamodify = {
+                        content: content,
+                        boardIdx: boardidx,
+                        commentIdx: commentIdx
+                    };
+                    $.ajax({
+                        type: "post",
+                        url: "/comment/modify",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(datamodify),
+                        success: function(){
+                            location.reload();
+                        },
+                        error: function(err){
+                            console.log("요청 실패", err);
+                        }
+                    });
+                });
+
+                // 수정 취소 버튼 클릭 시
+                $('#cancelModify' + commentIdx).off("click").on("click", function() {
+                    tr.find('#content').show();
+                    tr.find('#mod').show();
+                    tr.find('#del').show();
+                    tr.find('#modifytd').hide();
+                    tr.find('#inputtd').hide();
+                });
+            });
+
+            // 삭제 버튼 클릭 시
+            $('input[name=delete]').each(function() {
+                $(this).on("click", function(){
+                    var tr = $(this).closest('tr');
+                    var commentIdx = tr.find('[name="commentIdx"]').val();
+                    var boardIdx = [[${view.boardIdx}]];
+
+                    var data = {
+                        commentIdx: commentIdx,
+                        boardIdx: boardIdx
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: "/comment/delete",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(data),
+                        success: function(){
+                            location.reload();
+                        },
+                        error: function(err){
+                            console.log("요청 실패", err);
+                        }
+                    });
+                });
+            });
+        });
+    $('#comment-write-btn').on("click", function() {
+              const writer = document.getElementById("commentWriter").value;
+              const contents = document.getElementById("commentContents").value;
+              const idx = [[${view.boardIdx}]];
+              const bcidx = [[${view.notice.noticeIdx}]];
+
+              $.ajax({
+                  type: "post",
+                  url: "/comment/save",
+                  contentType: "application/json; charset=utf-8",
+                  data: JSON.stringify({
+                      "userid": writer,
+                      "content": contents,
+                      "boardIdx": idx,
+                      "bcidx": bcidx
+                  }),
+                  success: function() {
+                      location.reload();
+                  },
+                  error: function(err) {
+                      console.log("요청 실패", err);
+                  }
+              });
+          });
+
+          function modifyBoard() {
+              document.getElementById("boardForm").action = "/board/modify";
+              document.getElementById("boardForm").submit();
+          }
+
+          function deleteBoard() {
+              document.getElementById("boardForm").action = "/board/delete";
+              document.getElementById("boardForm").submit();
+          }
+    </script>
+</div>
+<div th:insert="~{/css/footer :: footer}"></div>
+</body>
+</html>

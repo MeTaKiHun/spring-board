@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function addFileInput() {
+             var fileInputs = document.querySelectorAll('input[type="file"]');
+             if (fileInputs.length >= 5) {
+                 alert('파일 입력 필드는 최대 5개까지만 추가할 수 있습니다.');
+                 return;
+             }
+             var newRow = document.createElement('tr');
+             var newCell = document.createElement('td');
+             newCell.colSpan = 2;
+             newCell.innerHTML = '<input type="file" name="files[]" class="fileclass" multiple="true" onchange="return checkFileSize()">' +
+                                 ' <input type="button" value="삭제" onclick="removeFileInput(this.parentNode.parentNode)">';
+             newRow.appendChild(newCell);
+
+             document.querySelector('#fileInputs').appendChild(newRow);
+         }
+
+         function removeFileInput(rowElement) {
+             rowElement.parentNode.removeChild(rowElement);
+             updateFileProgress(); // 파일이 삭제되면 진행률 업데이트
+         }
+
+        function updateFileProgress() {
+            var totalSize = 0;
+            var fileInputs = document.getElementsByClassName('fileclass');
+            for (var i = 0; i < fileInputs.length; i++) {
+                var files = fileInputs[i].files;
+                for (var j = 0; j < files.length; j++) {
+                    totalSize += files[j].size; // 파일의 크기를 합산
+                }
+            }
+            var filelimit = 10 * 1024 * 1024; // 1MB를 바이트 단위로 계산
+            var mb = 1024* 1024;
+            var filemb = totalSize/mb;
+            var ratio = totalSize / filelimit; // 비율 계산
+            var blocks = Math.min(Math.floor(ratio * 10), 10); // 비율에 따라 블록 수 계산, 최대 10개
+            var remaining = 10 - blocks;
+            var fileupSpan = document.getElementById('fileup');
+            var mbmax = 10.00;
+            fileupSpan.textContent = '■'.repeat(blocks) + '□'.repeat(remaining) + filemb.toFixed(2)+"MB";
+            if(!(filemb <= mbmax)){
+                alert("허용 용량이 초과되었습니다");
+                return false;
+            }
+        }
+        function checkFileSize() {
+             updateFileProgress(); // 파일이 추가되거나 삭제될 때마다 진행률 업데이트
+        }
+        function boardcheck(){
+         if (name == "") {
+                alert("이름을 입력해주세요.");
+                return false;
+            }
+            if (email == "") {
+                alert("이메일을 입력해주세요.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div th:insert="~{/css/header :: nav}"></div>
+<form action="/board/write_proc" onsubmit="return boardcheck()" enctype="multipart/form-data" method="post">
+    <table align="center">
+      <!--  <tr>
+            <td>카테고리</td>
+        </tr>-->
+        <tr>
+            <td>이름</td>
+            <td><span th:text="${user.name}"></span><input type="hidden" th:value="${user.idx}" name="idx"></td>
+        </tr>
+        <tr>
+            <td>머리말</td>
+            <td><select name="prefaceIdx">
+                <option th:each="pre:${preface}" th:value="${pre.prefaceIdx}"><span th:text="${pre.prefacename}"></span></option>
+            </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>제목</td>
+            <td><input type="text" placeholder="제목을 입력하세요." name="title"></td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td><textarea name="content" placeholder="내용을 입력하세요"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">첨부파일 <input type="button" value="추가" onclick="addFileInput()"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><span id="fileup" >□□□□□□□□□□ 0MB</span></td>
+        </tr>
+        <tbody id="fileInputs">
+        <tr>
+            <td colspan="2"><input type="file" name="files[]" class="fileclass" onchange="return checkFileSize()" multiple>
+                <input type="button" value="삭제" onclick="removeFileInput(this.parentNode.parentNode)"></td>
+        </tr>
+        </tbody>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="글 쓰기"><input type="button" value="목록으로" onclick="location.href='/board/board'" ></td>
+        </tr>
+    </table>
+</form>
+<div th:insert="~{/css/footer :: footer}"></div>
+</body>
+</html>

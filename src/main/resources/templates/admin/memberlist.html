@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 align="center">member list</h1>
+<table align="center">
+    <tr>
+        <td>회원번호</td>
+        <td>이름</td>
+        <td>아이디</td>
+        <td>이메일</td>
+        <td>회원등급</td>
+    </tr>
+    <tr th:each="member:${member}">
+        <td th:text="${member.idx}"></td>
+        <td th:text="${member.name}"></td>
+        <td th:text="${member.userid}"></td>
+        <td th:text="${member.email}"></td>
+        <td th:text="${member.grade}"></td>
+    </tr>
+    <Tr>
+        <td colspan="5"><input type="button" value="관리자 메인" onclick="location.href='/admin/main'"></td>
+    </Tr>
+</table>
+</body>
+</html>

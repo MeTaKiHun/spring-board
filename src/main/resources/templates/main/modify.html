@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function pwdchange() {
+        var pwd1 = document.getElementById("pwd1");
+
+        pwd1.style.display = "block";
+    }
+    function validateForm() {
+            var userid = document.getElementById('id').value;
+            var pwd = document.getElementById('pwd').value;
+            var pwd1 = document.getElementById('pwd1').value;
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+
+            if (userid == "") {
+                alert("아이디를 입력해주세요.");
+                return false;
+            }
+            if (pwd == "") {
+                alert("비밀번호를 입력해주세요.");
+                return false;
+            }
+            if (pwd1 == "") {
+                alert("비밀번호 확인을 입력해주세요.");
+                return false;
+            }
+            if (pwd !== pwd1) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            }
+            if (name == "") {
+                alert("이름을 입력해주세요.");
+                return false;
+            }
+            if (email == "") {
+                alert("이메일을 입력해주세요.");
+                return false;
+            }
+            return true;
+        }
+</script>
+<body>
+<div th:insert="~{/css/header :: nav}"></div>
+<form action="/main/modify_proc" onsubmit="return validateForm()" method="post">
+    <table align="center">
+        <tr>
+            <td>아이디</td>
+            <td><span th:text="${user.getUsername()}"></span><input type="hidden" th:value="${user.getIdx()}" name="idx"></td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="password" th:value="${user.getPassword()}" name="pwd" oninput="pwdchange()"></td>
+        </tr>
+        <tr>
+            <td>비밀번호 확인</td>
+            <td><input type="password"  name="pwd1" id="pwd1" style="display:none"></td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" th:value="${user.getName()}" name="name"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td><input type="email" th:value="${user.getEmail()}" name="email"></td>
+        </tr>
+        <tr>
+            <td>회원등급</td>
+            <td th:text="${user.getGrade()}"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="회원정보수정">
+                <input type="button" value="메인으로" onclick="location.href='/main/main'">
+            </td>
+        </tr>
+    </table>
+</form>
+<div th:insert="~{/css/footer :: footer}"></div>
+</body>
+</html>

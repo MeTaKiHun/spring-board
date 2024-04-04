@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+<nav th:replace="/css/header :: nav"></nav>
+<div align="center"><h1>로그인</h1></div>
+<form method="post" action="/join/login_proc">
+    <div align="center">
+    <table>
+        <tr th:if="${param.error!=null}">
+            <td colspan="2" style="color:red">아이디 비밀번호를 확인하세요</td>
+        </tr>
+        <tr>
+            <td>아이디<input type="text" name="userid" id="userid"></td>
+        </tr>
+        <Tr>
+            <td>비밀번호<input type="password" name="pwd" id="pwd"></td>
+        </Tr>
+        <tr>
+            <td><input type="submit" value="로그인"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="회원가입" onclick="location.href='/join/join'"></td>
+        </tr>
+    </table>
+    </div>
+</form>
+<div th:insert="~{/css/footer :: footer}"></div>
+</body>
+</html>

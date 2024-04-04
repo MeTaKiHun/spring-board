@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{/css/header.html :: nav}"></div>
+<div align="center"><h1>마이페이지</h1></div>
+<form id="boardForm">
+    <table align="center">
+        <tr>
+            <td>아이디</td>
+            <td><span th:text="${user.getUsername()}"></span></td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td th:text="${user.getName()}"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td th:text="${user.getEmail()}"></td>
+        </tr>
+        <tr>
+            <td>회원등급</td>
+            <td th:text="${user.getGrade()}"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="회원정보수정" onclick="location.href='/main/modify'">
+                <input type="button" value="회원탈퇴" onclick="location.href='/main/delete'">
+                <input type="button" value="메인으로" onclick="location.href='/main/main'">
+            </td>
+        </tr>
+    </table>
+</form>
+<div th:insert="~{/css/footer :: footer}"></div>
+</body>
+</html>

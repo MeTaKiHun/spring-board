@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>메인화면</title>
+</head>
+<body>
+<div th:insert="~{/css/header :: nav}"></div>
+<div align="center">
+    <h1>메인화면</h1>
+    <span>[[${#authentication.principal.Name}]]님 로그인을 환영합니다</span><br>
+    <button type="button" class="btn btn-primary" onclick="location.href='/logout'">로그아웃</button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/main/view'">마이페이지</button>
+    <button type="button" class="btn btn-success" onclick="location.href='/board/board'">게시판</button>
+    <button type="button" class="btn btn-danger" onclick="location.href='/admin/main'">관리자페이지</button>
+</div>
+<div th:insert="~{/css/footer :: footer}"></div>
+</body>
+</html>
