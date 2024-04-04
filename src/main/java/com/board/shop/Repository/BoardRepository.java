@@ -30,4 +30,5 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     @Query(value = "SELECT b FROM BoardEntity b LEFT JOIN FETCH b.files JOIN FETCH b.member LEFT JOIN FETCH b.preface p WHERE b.boardIdx = :boardIdx")
     BoardEntity findByeeeee(@Param("boardIdx")Long boardidx);
 
+
 }

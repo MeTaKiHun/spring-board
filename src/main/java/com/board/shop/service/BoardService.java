@@ -41,8 +41,10 @@ public class BoardService {
         return boardRepository.findByeeeee(boardidx);
     }
 
-    public CommentEntity commentView(BoardEntity board){
-        return commentRepository.findByBoard(board);
+
+    @Transactional
+    public List<BoardEntity> boardnotice(){
+        return boardRepository.findByPrefacePrefaceIdx(1L);
     }
 
     @Transactional

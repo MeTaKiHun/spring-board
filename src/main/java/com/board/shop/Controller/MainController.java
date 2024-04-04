@@ -5,7 +5,6 @@ import com.board.shop.DTO.MyUserDetails;
 import com.board.shop.Entity.BoardEntity;
 import com.board.shop.service.BoardService;
 import com.board.shop.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,11 +12,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,14 +27,15 @@ public class MainController {
     private final BoardService boardService;
 
     //main
-    @RequestMapping("/main/main")
-    public String main(HttpSession session, Model model,
-                       @PageableDefault(page = 0, size = 5, sort = "boardIdx", direction = Sort.Direction.DESC) Pageable pageable,
-                       @RequestParam(name = "bcidx", required = false, defaultValue = "1") Long bcidx) {
+    @GetMapping("/main/main")
+    @Transactional
+    public String main(Model model, @PageableDefault(page = 0, size = 5, sort = "boardIdx", direction = Sort.Direction.DESC) Pageable pageable,@AuthenticationPrincipal MyUserDetails userDetails) {
         Page<BoardEntity> boardall= boardService.boardall(pageable);
         model.addAttribute("boardall", boardall);
-        Page<BoardEntity> result = boardService.board(bcidx, pageable);
-        boardService.page(result, model, bcidx);
+        List<BoardEntity> notice = boardService.boardnotice();
+        model.addAttribute("notice", notice );
+        model.addAttribute("grade",userDetails.getGrade());
+        
         return "main/main";
     }
 

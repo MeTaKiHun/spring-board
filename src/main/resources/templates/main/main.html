@@ -9,15 +9,43 @@
 <div align="center">
     <h1>메인화면</h1>
     <span>[[${#authentication.principal.Name}]]님 로그인을 환영합니다</span><br>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/main/view'">마이페이지</button>
-    <button type="button" class="btn btn-success" onclick="location.href='/board/board'">게시판</button>
-    <button type="button" class="btn btn-danger" onclick="location.href='/admin/main'">관리자페이지</button>
-</div>
-<div th:each="b : ${boardall}" align="center">
-    <div>
-        <span th:text="${b.title}"></span>
-        <span th:text="${b.member.name}"></span>
+    <div style="display: inline-block;margin:auto;" align="center">
+        <div style="float:left;margin-right:10px" align="center"><button type="button" class="btn btn-secondary" onclick="location.href='/main/view'">마이페이지</button></div>
+        <div style="float:left;margin-right:10px" align="center"><button type="button" class="btn btn-success" onclick="location.href='/board/board'">게시판</button></div>
+        <div style="float:left;margin-right:10px" align="center" th:if="${grade==3}"><button type="button" class="btn btn-danger" onclick="location.href='/admin/main'">관리자페이지</button></div>
     </div>
+</div>
+<div style="margin:auto;width:80%;margin-top:30px;display:flex" align="center">
+    <table style="float:left;" align="center">
+        <tr align="center">
+            <td colspan="3" align="center"><h4>공지사항</h4></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>글 제목</td>
+            <td>글쓴이</td>
+        </tr>
+        <tr th:each="n:${notice}">
+            <td>공지사항</td>
+            <td th:text="${n.title}"></td>
+            <td th:text="${n.member.name}"></td>
+        </tr>
+    </table>
+    <table align="center">
+        <tr>
+            <td colspan="3" align="center"><h4>신규 게시글</h4></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">글 제목</td>
+            <td align="center">글쓴이</td>
+        </tr>
+        <tr th:each="b : ${boardall}" align="center" >
+            <td>new</td>
+            <td th:text="${b.title}"></td>
+            <td th:text="${b.member.name}"></td>
+        </tr>
+    </table>
 </div>
 
 <div th:insert="~{/css/footer :: footer}"></div>
