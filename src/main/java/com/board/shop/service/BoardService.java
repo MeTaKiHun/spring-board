@@ -28,37 +28,14 @@ public class BoardService {
     private final NoticeRepository noticeRepository;
     private final PrefaceRepository prefaceRepository;
 
-    private int convertToGrade(String grade) {
-        switch (grade) {
-            case "[ROLE_SILVER]":
-                return 1;
-            case "[ROLE_GOLD]":
-                return 2;
-            case "[ROLE_ADMIN]":
-                return 3;
-            default:
-                return 0;
-        }
-    }
-
-    private int getGradeString(String grade) {
-        if (grade.equals("일반회원")) {
-            grade = "[ROLE_SILVER]";
-            return convertToGrade(grade);
-        } else if (grade.equals("우수회원")) {
-            grade = "[ROLE_GOLD]";
-            return convertToGrade(grade);
-        } else if (grade.equals("관리자")) {
-            grade = "[ROLE_ADMIN]";
-            return convertToGrade(grade);
-        }
-        return 0;
-    }
-
     public Page<BoardEntity> board(Long bcidx, Pageable pageable) {
             return boardRepository.findByNotice(bcidx,pageable);
     }
 
+    @Transactional
+    public Page<BoardEntity> boardall(Pageable pageable){
+        return boardRepository.findAll(pageable);
+    }
     @Transactional
     public BoardEntity boardView(Long boardidx) {
         return boardRepository.findByeeeee(boardidx);

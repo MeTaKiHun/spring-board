@@ -3,8 +3,6 @@ package com.board.shop.Controller;
 import com.board.shop.DTO.MemberDTO;
 import com.board.shop.DTO.MyUserDetails;
 import com.board.shop.Entity.BoardEntity;
-import com.board.shop.Entity.NoticeEntity;
-import com.board.shop.service.AdminService;
 import com.board.shop.service.BoardService;
 import com.board.shop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -21,14 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
     private final MemberService memberService;
-    private final AdminService adminService;
     private final BoardService boardService;
 
     //main
@@ -36,9 +31,8 @@ public class MainController {
     public String main(HttpSession session, Model model,
                        @PageableDefault(page = 0, size = 5, sort = "boardIdx", direction = Sort.Direction.DESC) Pageable pageable,
                        @RequestParam(name = "bcidx", required = false, defaultValue = "1") Long bcidx) {
-        List<NoticeEntity> notice = adminService.boardfind();
-        model.addAttribute("notice", notice);
-        session.setAttribute("bcidx", bcidx);
+        Page<BoardEntity> boardall= boardService.boardall(pageable);
+        model.addAttribute("boardall", boardall);
         Page<BoardEntity> result = boardService.board(bcidx, pageable);
         boardService.page(result, model, bcidx);
         return "main/main";
