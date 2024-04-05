@@ -51,8 +51,6 @@ public class AdminController {
 
     @GetMapping("/boardcreate_proc")
     public String boardsave(NoticeDTO noticeDTO, NoticeSettingDTO settingDTO){
-        System.out.println("noticeDTO = " + noticeDTO);
-        System.out.println("settingDTO = " + settingDTO);
         adminService.boardsave(noticeDTO,settingDTO);
         return "redirect:/admin/boardlist";
     }

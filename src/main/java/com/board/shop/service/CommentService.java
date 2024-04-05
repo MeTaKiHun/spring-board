@@ -28,8 +28,8 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public List<CommentEntity> findCommentsByBoardIdx(Long BoardIdx) {
-        return commentRepository.findCommentByBoard(BoardIdx);
+    public List<CommentEntity> findCommentsByBoardIdx(Long boardIdx) {
+        return commentRepository.findCommentByBoard(boardIdx);
     }
 
     public void commentdel(Long cidx){

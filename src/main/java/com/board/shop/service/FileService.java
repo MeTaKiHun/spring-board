@@ -23,14 +23,11 @@ public class FileService {
    public boolean fileDelete(Long fileidx){
        FileEntity fileEntity = fileRepository.findByFileIdx(fileidx);
        String filepath= fileEntity.getFilepath();
-       System.out.println("filepath = " + filepath);
        File file = new File(filepath);
        if(file.exists()){
-           System.out.println("삭제완료");
            fileRepository.delete(fileEntity);
            return file.delete();
        }else {
-           System.out.println("삭제실패");
            return false;
        }
    }
@@ -41,7 +38,6 @@ public class FileService {
        String filepath =  "D:/shop/file/"+formattedDate+"/"+bEntity.getTitle()+"/";
        for (int i = 0; i < files.size(); i++) {
            MultipartFile file = files.get(i);
-           System.out.println("file.getSize() = " + file.getSize());
            UUID uuid = UUID.randomUUID();
            String original = file.getOriginalFilename();
            String filename = uuid + "_" + original;

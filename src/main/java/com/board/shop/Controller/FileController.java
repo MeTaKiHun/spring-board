@@ -27,7 +27,6 @@ public class FileController {
 
     @GetMapping("/filedelete")
     public String filedelete(@RequestParam("fileidx") Long fileidx, @RequestParam("boardidx") Long boardidx) {
-        System.out.println("fileidx = " + fileidx);
         fileService.fileDelete(fileidx);
         return "redirect:/board/modify?boardidx=" + boardidx;
     }

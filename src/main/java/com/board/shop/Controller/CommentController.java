@@ -18,13 +18,11 @@ public class CommentController {
 
     @PostMapping("/save")
     public void comment(@RequestBody CommentDTO commentDTO){
-        System.out.println("commentDTO = " + commentDTO);
         commentService.commentSave(commentDTO);
     }
 
     @PostMapping("/modify")
     public void commentmodify(@RequestBody CommentdelDTO commentdelDTO){
-        System.out.println("commentdelDTO = " + commentdelDTO);
         commentService.commentmodify(commentdelDTO);
     }
 

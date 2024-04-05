@@ -47,6 +47,6 @@ public class ExceptionController {
     }
 
     private void printErrorInfo(HttpServletRequest req) {
-        log.info("dispatchTypes= {}", req.getDispatcherType());
+        log.info("dispatchTypes= {}", req.getDispatcherType()); //NOPMD - suppressed GuardLogStatement - TODO explain reason for suppression
     }
 }

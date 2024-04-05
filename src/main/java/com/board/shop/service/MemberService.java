@@ -1,13 +1,10 @@
 package com.board.shop.service;
 
-import com.board.shop.DTO.LoginDTO;
 import com.board.shop.DTO.MemberDTO;
 import com.board.shop.Entity.MemberEntity;
 import com.board.shop.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -36,18 +33,4 @@ public class MemberService {
             }
     }
 
-    public String loginproc(LoginDTO loginDTO) {
-
-        MemberEntity member = null;
-        if (loginDTO.getUserid() != null) {
-             member = memberRepository.findByUserid(loginDTO.getUserid());
-            return "아이디를 확인하세요.";
-        } else {
-            if (!Objects.equals(member.getPwd(), loginDTO.getPassword())) {
-                return "비밀번호가 일치하지 않습니다.";
-            }else{
-                return "로그인이 완료되었습니다.";
-            }
-        }
-    }
 }

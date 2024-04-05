@@ -53,7 +53,6 @@ public class MainController {
 
     @PostMapping("/main/modify_proc") // 수정 정보 저장
     public String modifyproc(MemberDTO dto) {
-        System.out.println(dto.toEntity());
         memberService.update(dto);
         return "redirect:/logout";
     }

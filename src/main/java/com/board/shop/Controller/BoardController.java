@@ -67,8 +67,8 @@ public class BoardController {
     }
 
     @PostMapping("/write_proc")
-    private String writeproc(BoardDTO bdto,@RequestParam("idx")Long idx , FileDTO fdto, HttpSession session
-            ,@RequestParam("files[]") List<MultipartFile> files ,Model model) throws Exception {
+    public String writeproc(BoardDTO bdto,@RequestParam("idx")Long idx , FileDTO fdto, HttpSession session
+            ,@RequestParam("files[]") List<MultipartFile> files ) throws Exception {
         Long bcidx =(Long)session.getAttribute("bcidx");
         boardService.boardSave(bdto,idx,fdto,files,bcidx);
         return "redirect:/board/board?bcidx="+bcidx;

@@ -10,12 +10,12 @@ import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
-    private String Userid;
-    private String pwd;
-    private int grade;
-    private String name;
-    private Long idx;
-    private String email;
+    private final String Userid;
+    private final String pwd;
+    private final int grade;
+    private final String name;
+    private final Long idx;
+    private final String email;
     public MyUserDetails(String userid, String pwd, int grade, String name, String email, Long idx) {
         this.Userid = userid;
         this.pwd = pwd;
@@ -28,9 +28,7 @@ public class MyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println(grade);
         authorities.add(new SimpleGrantedAuthority("ROLE_"+grade));
-        System.out.println(authorities);
         return authorities;
     }
 

@@ -17,9 +17,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-        System.out.println(userid);
         MemberEntity mem = memberRepository.findByUserid(userid);
-        System.out.println(mem);
         if(mem!=null) {
 
             return new MyUserDetails(mem.getUserid(), mem.getPwd(), mem.getGrade(), mem.getName(), mem.getEmail(), mem.getIdx());
