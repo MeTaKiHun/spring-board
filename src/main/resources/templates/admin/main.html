@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div th:insert="~{/admin/css/header :: nav}"></div>
 <div align="center">
-<h1>관리자 페이지</h1>
-    <input type="button" value="게시판 목록" onclick="location.href='/admin/boardlist'">
-    <input type="button" value="회원 목록" onclick="location.href='/admin/memberlist'">
-    <input type="button" value="메인화면" onclick="location.href='/main/main'">
+    <h1>관리자 페이지</h1>
+    <button type="button" class="btn btn-primary" onclick="location.href='/admin/boardlist'">게시판 목록</button>
+    <button type="button" class="btn btn-light" onclick="location.href='/admin/memberlist'">회원 목록</button>
+    <button type="button" class="btn btn-dark" onclick="location.href='/main/main'">메인화면</button>
 </div>
 </body>
 </html>
