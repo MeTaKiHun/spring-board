@@ -54,6 +54,18 @@
         <input type="button" value="글 쓰기" onclick="location.href='/board/write'">
         <input type="button" value="메인화면" onclick="location.href='/main/main'">
     </div>
+    <form>
+    <div align="center">
+        <div><input type="hidden" th:value="${param.bcidx}" name="bcidx">
+            <select name="searchtype">
+            <option value="none">===선택===</option>
+            <option value="name">글쓴이</option>
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="title&content">제목+내용</option>
+        </select><input type="search" name="search" placeholder="검색어를 입력하세요"><input type="submit" value="검색"></div>
+    </div>
+    </form>
 </div>
 <div th:insert="~{/css/footer :: footer}"></div>
 </body>

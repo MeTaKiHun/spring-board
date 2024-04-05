@@ -5,7 +5,7 @@
     <title>로그인</title>
 </head>
 <body>
-<nav th:replace="/css/header :: nav"></nav>
+<div th:insert="~{/css/header :: nav}"></div>
 <div align="center"><h1>로그인</h1></div>
 <form method="post" action="/join/login_proc">
     <div align="center">

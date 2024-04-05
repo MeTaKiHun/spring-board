@@ -5,19 +5,20 @@
     <title>Title</title>
 </head>
 <body>
+<div th:insert="~{/admin/css/header :: nav}"></div>
 <div align="center">
     <h1 style="margin-top:50px">boardlist</h1>
     <div th:each="c:${notice}" >
         <table>
             <tr>
                 <td><a th:href="@{'/board/board?bcidx='+${c.noticeIdx}}"><span th:text="${c.noticename}"></span></a></td>
-                <td><input type="button" value="삭제" th:onclick="'javascript:location.href=\'/admin/boarddel?bcidx=' + ${c.noticeIdx} + '\''"></td>
+                <td><button type="button" class="btn btn-danger" th:onclick="'javascript:location.href=\'/admin/boarddel?bcidx=' + ${c.noticeIdx} + '\''">삭제</button></td>
             </tr>
         </table>
     </div>
-    <input type="button" value="머리말 만들기" onclick="location.href='/admin/preface'">
-    <input type="button" value="게시판 만들기" onclick="location.href='/admin/boardcreate'">
-    <input type="button" value="관리자 메인" onclick="location.href='/admin/main'">
+    <button type="button" class="btn btn-primary" onclick="location.href='/admin/preface'">머리말 만들기</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/admin/boardcreate'">게시판 만들기</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/admin/main'">관리자 메인</button>
 </div>
 </body>
 </html>

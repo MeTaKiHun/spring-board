@@ -38,12 +38,17 @@ public class BoardController {
     @GetMapping("/board")
     public String board(HttpSession session, Model model,
                         @PageableDefault(page=0,size = 5,sort ="boardIdx",direction = Sort.Direction.DESC) Pageable pageable,
-                        @RequestParam(name= "bcidx",required = false, defaultValue = "1")Long bcidx) {
+                        @RequestParam(name= "bcidx",required = false, defaultValue = "1")Long bcidx,
+                        @RequestParam(name="search",required = false)String search,
+                        @RequestParam(name="searchtype",required = false)String searchtype) {
         List<NoticeEntity> notice =adminService.boardfind();
         model.addAttribute("notice", notice);
         session.setAttribute("bcidx",bcidx);
         Page<BoardEntity> result= boardService.board(bcidx,pageable);
-        boardService.page(result,model,bcidx);
+        boardService.page(result,model,bcidx,search,searchtype);
+        if(search!=null&&searchtype!="none"){
+            boardService.search(search, pageable, searchtype);
+        }
         return "/board/board";
     }
 

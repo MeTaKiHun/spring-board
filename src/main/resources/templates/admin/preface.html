@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:insert="~{/admin/css/header :: nav}"></div>
 <div align="center">
 <h1>머리말종류</h1>
 <div th:if="${preface!=null}" th:each="preface:${preface}">

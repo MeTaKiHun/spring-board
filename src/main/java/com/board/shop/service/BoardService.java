@@ -51,7 +51,7 @@ public class BoardService {
         MemberEntity memberEntity = memberRepository.findByIdx(idx);
         BoardEntity boardEntity = bdto.toEntity();
         PrefeceEntity prefece = prefaceRepository.findByPrefaceIdx(bdto.getPrefaceIdx());
-        NoticeEntity notice = noticeRepository.findById(bcidx).orElseThrow(() -> new IllegalStateException(bcidx+"에 해당하는 데이터가 없습니다."));
+        NoticeEntity notice = noticeRepository.findByNoticeIdx(bcidx);
         boardEntity.setNotice(notice);
         boardEntity.setPreface(prefece);
         boardEntity.setMember(memberEntity);
@@ -60,6 +60,17 @@ public class BoardService {
         }else{
             boardRepository.save(boardEntity);
         }
+    }
+
+    @Transactional
+    public Page<BoardEntity> search(String search,Pageable pageable,String searchtype){
+        return switch (searchtype) {
+            case "title" -> boardRepository.findByTitleContaining(search, pageable);
+            case "name" -> boardRepository.findByMemberNameContaining(search, pageable);
+            case "title&content" -> boardRepository.findByTitleOrContentContaining(search, search, pageable);
+            case "content" -> boardRepository.findByContentContaining(search, pageable);
+            default -> null;
+        };
     }
 
     @Transactional
@@ -80,7 +91,7 @@ public class BoardService {
     }
 
 
-    public void page(Page<BoardEntity> result, Model model,Long bcidx){
+    public void page(Page<BoardEntity> result, Model model,Long bcidx,String search,String searchtype){
         int boardall = boardRepository.findByNo(bcidx).size();
         List<BoardEntity> boardnotice = new ArrayList<>();
         for (int i = 0; i < boardall; i++) {
@@ -99,10 +110,13 @@ public class BoardService {
             endpage = 1;
         }
         int maxpage = result.getTotalPages();
+        if(search==null&&searchtype==null) {
+            model.addAttribute("board", result);
+        }
         model.addAttribute("boardnotice",boardnotice);
         model.addAttribute("number",boardall);
         model.addAttribute("bcidx", bcidx);
-        model.addAttribute("board", result);
+
         model.addAttribute("linkpage", linkpage);
         model.addAttribute("j", j);
         model.addAttribute("nowpage", nowpage);

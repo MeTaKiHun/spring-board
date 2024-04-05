@@ -30,5 +30,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     @Query(value = "SELECT b FROM BoardEntity b LEFT JOIN FETCH b.files JOIN FETCH b.member LEFT JOIN FETCH b.preface p WHERE b.boardIdx = :boardIdx")
     BoardEntity findByeeeee(@Param("boardIdx")Long boardidx);
 
+    Page<BoardEntity> findByTitleContaining(String title,Pageable pageable);
+    Page<BoardEntity> findByContentContaining(String Content,Pageable pageable);
+    Page<BoardEntity> findByTitleOrContentContaining(String title,String content,Pageable pageable);
+    Page<BoardEntity> findByMemberNameContaining(String membername,Pageable pageable);
+
 
 }
