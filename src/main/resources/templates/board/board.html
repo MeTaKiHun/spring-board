@@ -7,14 +7,15 @@
 </head>
 <body>
 <div th:insert="~{/css/header :: nav}"></div>
-<div style="float:left;width:20%;height:1000px;" align="center">
-    <table>
-        <Tr th:each="c:${notice}">
-            <td><a th:href="@{'/board/board?bcidx='+${c.noticeIdx}}"><span th:text="${c.noticename}"></span></a></td>
-        </Tr>
-    </table>
+<div style="float:left;width:20%;height:1000px;margin-top:50px;margin-left:100px" align="center" >
+    <div class="list-group" >
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            게시판 목록
+        </a>
+        <a th:each="c:${notice}" th:href="@{'/board/board?bcidx='+${c.noticeIdx}}" class="list-group-item list-group-item-action" ><span th:text="${c.noticename}"></span></a>
+    </div>
 </div>
-<div th:if="${param.bcidx != null}">
+<div th:if="${param.bcidx != null}" style="margin-top:50px">
     <table align="center" border="1" style="text-align:center;">
         <tr>
             <td>글 번호</td>

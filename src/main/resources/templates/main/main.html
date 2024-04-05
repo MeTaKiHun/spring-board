@@ -16,22 +16,22 @@
     </div>
 </div>
 <div style="margin:auto;width:80%;margin-top:30px;display:flex" align="center">
-    <table style="float:left;" align="center">
+    <table style="float:left;width:40%" align="center" border="1" >
         <tr align="center">
             <td colspan="3" align="center"><h4>공지사항</h4></td>
         </tr>
         <tr>
             <td></td>
-            <td>글 제목</td>
-            <td>글쓴이</td>
+            <td align="center">글 제목</td>
+            <td align="center">글쓴이</td>
         </tr>
         <tr th:each="n:${notice}">
-            <td>공지사항</td>
-            <td th:text="${n.title}"></td>
-            <td th:text="${n.member.name}"></td>
+            <td align="center"><span class="badge text-bg-primary">공지사항</span></td>
+            <td align="center" th:text="${n.title}"></td>
+            <td align="center" th:text="${n.member.name}"></td>
         </tr>
     </table>
-    <table align="center">
+    <table align="center" border="1" style="width:40%;" >
         <tr>
             <td colspan="3" align="center"><h4>신규 게시글</h4></td>
         </tr>
@@ -41,9 +41,9 @@
             <td align="center">글쓴이</td>
         </tr>
         <tr th:each="b : ${boardall}" align="center" >
-            <td>new</td>
-            <td th:text="${b.title}"></td>
-            <td th:text="${b.member.name}"></td>
+            <td align="center"><span class="badge text-bg-warning">new</span></td>
+            <td align="center" th:text="${b.title}"></td>
+            <td align="center" th:text="${b.member.name}"></td>
         </tr>
     </table>
 </div>

@@ -45,7 +45,7 @@ public class AdminService {
     }
 
     public List<PrefeceEntity> prefeceall() {
-        return prefaceRepository.findAll(Sort.by(Sort.Direction.DESC, "belong"));
+        return prefaceRepository.findAll(Sort.by(Sort.Direction.DESC, "prefaceIdx"));
     }
 
 }

@@ -6,9 +6,9 @@
 </head>
 <body>
 <div th:insert="~{/css/header.html :: nav}"></div>
-<div align="center"><h1>마이페이지</h1></div>
+<div align="center" style="margin-top:50px"><h1>마이페이지</h1></div>
 <form id="boardForm">
-    <table align="center">
+    <table align="center" >
         <tr>
             <td>아이디</td>
             <td><span th:text="${user.getUsername()}"></span></td>

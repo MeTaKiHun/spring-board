@@ -10,14 +10,14 @@ import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
-    private final String Userid;
-    private final String pwd;
-    private final int grade;
-    private final String name;
-    private final Long idx;
-    private final String email;
+    private String userid;
+    private String pwd;
+    private int grade;
+    private String name;
+    private Long idx;
+    private String email;
     public MyUserDetails(String userid, String pwd, int grade, String name, String email, Long idx) {
-        this.Userid = userid;
+        this.userid = userid;
         this.pwd = pwd;
         this.grade = grade;
         this.name = name;
@@ -51,7 +51,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return Userid;
+        return userid;
     }
 
     @Override

@@ -24,7 +24,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final FileService fileService;
-    private final CommentRepository commentRepository;
     private final NoticeRepository noticeRepository;
     private final PrefaceRepository prefaceRepository;
 
