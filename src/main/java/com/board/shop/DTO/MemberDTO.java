@@ -24,7 +24,6 @@ public class MemberDTO {
 
     private String email;
 
-    private int grade;
 
     public MemberEntity toEntity(){
         return  MemberEntity.builder()
@@ -33,7 +32,7 @@ public class MemberDTO {
                 .pwd(pwd)
                 .name(name)
                 .email(email)
-                .grade(grade)
+                .grade(1)
                 .build();
     }
 }

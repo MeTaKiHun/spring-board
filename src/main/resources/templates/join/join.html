@@ -1,66 +1,48 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>회원가입 폼 검증</title>
-    <script>
-        function validateForm() {
-            var userid = document.getElementById('id').value;
-            var pwd = document.getElementById('pwd').value;
-            var pwd1 = document.getElementById('pwd1').value;
-            var name = document.getElementById('name').value;
-            var email = document.getElementById('email').value;
-
-            if (userid == "") {
-                alert("아이디를 입력해주세요.");
-                return false;
-            }
-            if (pwd == "") {
-                alert("비밀번호를 입력해주세요.");
-                return false;
-            }
-            if (pwd1 == "") {
-                alert("비밀번호 확인을 입력해주세요.");
-                return false;
-            }
-            if (pwd !== pwd1) {
-                alert("비밀번호가 일치하지 않습니다.");
-                return false;
-            }
-            if (name == "") {
-                alert("이름을 입력해주세요.");
-                return false;
-            }
-            if (email == "") {
-                alert("이메일을 입력해주세요.");
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <title>회원가입</title>
 </head>
 <body>
-<div th:insert="~{/css/header :: nav}"></div>
-<form action="/join/join_proc" onsubmit="return validateForm()">
+<nav th:replace="~{/layouts/header :: nav}"></nav>
+<form action="/join/join" method="post" >
+
     <table align="center">
         <tr>
             <td>아이디</td>
-            <td><input type="text" name="userid" id="id"></td>
+            <td><input type="text" th:value="${formdata.userid}" name="userid"></td>
         </tr>
-        <tr>
+        <tr >
+            <td class="message" colspan="2" th:text="${iderror}"></td>
+        </tr>
+       <tr>
             <td>비밀번호</td>
-            <td><input type="password" name="pwd" id="pwd"></td>
+            <td><input type="password" th:value="${formdata.pwd}" name="pwd" id="pwd"></td>
+        </tr>
+        <tr th:if="${pwderror!=null}">
+            <td class="message" colspan="2" th:text="${pwderror}"></td>
         </tr>
         <tr>
             <td>비밀번호 확인</td>
-            <td><input type="password" name="pwd1" id="pwd1"></td>
+            <td><input type="password" th:value="${formdata.pwd1}"  id="pwd1"></td>
+        </tr>
+        <tr th:if="${pwd1error!=null}">
+            <td class="message" colspan="2" th:text="${pwd1error}"></td>
         </tr>
         <tr>
             <td>이름</td>
-            <td><input type="text" name="name" id="name"></td>
+            <td><input type="text" th:value="${formdata.name}" name="name" id="name"></td>
+        </tr>
+        <tr th:if="${nameerror!=null}">
+            <td class="message" colspan="2" th:text="${nameerror}"></td>
         </tr>
         <tr>
             <td>이메일</td>
-            <td><input type="email" name="email" id="email"></td>
+            <td><input type="email" th:value="${formdata.email}" name="email" id="email"></td>
+        </tr>
+        <tr th:if="${emailerror!=null}">
+            <td class="message" colspan="2" th:text="${emailerror}"></td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="회원가입">
@@ -68,6 +50,74 @@
         </tr>
     </table>
 </form>
-<div th:insert="~{/css/footer :: footer}"></div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+<body>
+<style>
+    .message{
+        color:red;
+    }
+</style>
+<nav th:replace="~{/layouts/header :: nav}"></nav>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">회원가입</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="userid">아이디</label>
+                            <input type="text" class="form-control" id="userid" name="userid" placeholder="아이디를 입력하세요">
+                        </div>
+                        <div th:if="${iderror!=null}">
+                            <span class="message" colspan="2" th:text="${iderror}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" class="form-control" id="password" name="pwd" placeholder="비밀번호를 입력하세요">
+                        </div>
+                        <div th:if="${pwderror!=null}">
+                            <span class="message" colspan="2" th:text="${pwderror}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">비밀번호 확인</label>
+                            <input type="password" class="form-control" id="confirm_password" name="pwd1" placeholder="비밀번호를 다시 입력하세요">
+                        </div>
+                        <div th:if="${pwd1error!=null}">
+                            <span class="message" colspan="2" th:text="${pwd1error}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">이름</label>
+                            <input type="text" class="form-control" id="username" name="name" placeholder="이름를 입력하세요">
+                        </div>
+                        <div th:if="${nameerror!=null}">
+                            <span class="message" colspan="2" th:text="${nameerror}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일 주소</label>
+                            <input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력하세요">
+                        </div>
+                        <div th:if="${emailerror!=null}">
+                            <span class="message" colspan="2" th:text="${emailerror}"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">가입하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

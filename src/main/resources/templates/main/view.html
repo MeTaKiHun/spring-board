@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:insert="~{/css/header.html :: nav}"></div>
+<nav th:replace="~{/layouts/header.html :: nav}"></nav>
 <div align="center" style="margin-top:50px"><h1>마이페이지</h1></div>
 <form id="boardForm">
     <table align="center" >
@@ -34,6 +34,6 @@
         </tr>
     </table>
 </form>
-<div th:insert="~{/css/footer :: footer}"></div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>
 </html>

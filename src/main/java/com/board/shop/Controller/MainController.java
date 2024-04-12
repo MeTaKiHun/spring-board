@@ -1,5 +1,6 @@
 package com.board.shop.Controller;
 
+import com.board.shop.Config.CustomAuthenticationFailureHandler;
 import com.board.shop.DTO.MemberDTO;
 import com.board.shop.DTO.MyUserDetails;
 import com.board.shop.Entity.BoardEntity;
@@ -25,6 +26,8 @@ public class MainController {
 
     private final MemberService memberService;
     private final BoardService boardService;
+    private CustomAuthenticationFailureHandler handler;
+
 
     //main
     @GetMapping("/main/main")
@@ -51,7 +54,7 @@ public class MainController {
         return "main/modify";
     }
 
-    @PostMapping("/main/modify_proc") // 수정 정보 저장
+    @GetMapping("/main/modify_proc") // 수정 정보 저장
     public String modifyproc(MemberDTO dto) {
         memberService.update(dto);
         return "redirect:/logout";
@@ -66,20 +69,30 @@ public class MainController {
 
     @GetMapping("/join/login") // 로그인
     public String login() {
-        return "join/login";
+        return "/join/login";
     }
 
     @GetMapping("/join/join")
-    public String join() {
-        return "join/join";
+    public String join(MemberDTO dto,Model model) {
+        int i = memberService.joincheck(dto,model);
+        if (i==5) {
+            return "join/join";
+        }else{
+            return "join/join";
+        }
     }
 
-    @PostMapping("/join/join_proc")
-    public String joinproc(MemberDTO dto) {
-        memberService.joinsave(dto);
-        return "redirect:/join/login";
+    @PostMapping("/join/join")
+    public String joincheck(MemberDTO dto,Model model) {
+        int i = memberService.joincheck(dto,model);
+        if(i==5){
+            memberService.joinsave(dto);
+            return "redirect:/join/login";
+        }else {
+            model.addAttribute("formdata",dto);
+            return "join/join";
+        }
     }
-
 
     @GetMapping("/admin/list")
     public String list(){

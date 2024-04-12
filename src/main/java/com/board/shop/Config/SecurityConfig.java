@@ -2,6 +2,7 @@ package com.board.shop.Config;
 
 
 import com.board.shop.Encoder.UserPasswordEncoder;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.naming.AuthenticationException;
+import java.io.IOException;
 
 @EnableWebSecurity
 @Configuration
@@ -42,13 +46,15 @@ public class SecurityConfig {
         http
                 .formLogin(form -> form
                         .loginPage("/join/login")
-                        .loginProcessingUrl("/join/login_proc") // 로그인 처리 URL 설정
+                        .loginProcessingUrl("/join/login") // 로그인 처리 URL 설정
                         .usernameParameter("userid")
-                        .passwordParameter("pwd")
+                        .passwordParameter("password")
                         .defaultSuccessUrl("/main/main", true)
-                        .failureUrl("/join/login?error=true") // 로그인 실패 시 리다이렉트할 URL 설정
+                        .failureUrl("/join/login?error=true")
+                        .failureHandler(new CustomAuthenticationFailureHandler())
                         .permitAll()
                 );
+
 
         http
                 // 로그아웃 설정
@@ -65,18 +71,19 @@ public class SecurityConfig {
                         // 로그아웃 시 쿠키 삭제 설정 (예: "remember-me" 쿠키 삭제)
                         .deleteCookies("remember-me")
                 );
-    /*    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            // authentication 객체에는 사용자 이름, 권한 등의 정보가 있습니다.
-            String username = authentication.getName();
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            // ... 이후 username과 authorities를 원하는 방식으로 사용합니다 ...
-        }*/
 
         return http.build();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new UserPasswordEncoder();
+    }
+
+
+    public void loginfail(HttpServletRequest request, AuthenticationException exception) throws IOException,Exception{
+        String id = request.getParameter("userid");
+        String pwd = request.getParameter("password");
+        System.out.println("pwd = " + pwd);
+        System.out.println("id = " + id);
     }
 }

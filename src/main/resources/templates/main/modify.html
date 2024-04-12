@@ -45,7 +45,7 @@
         }
 </script>
 <body>
-<div th:insert="~{/css/header :: nav}"></div>
+<nav th:replace="~{/layouts/header :: nav}"></nav>
 <form action="/main/modify_proc" onsubmit="return validateForm()" method="post">
     <table align="center">
         <tr>
@@ -80,6 +80,6 @@
         </tr>
     </table>
 </form>
-<div th:insert="~{/css/footer :: footer}"></div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>
 </html>

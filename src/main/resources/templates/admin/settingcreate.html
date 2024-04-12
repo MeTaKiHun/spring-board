@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<div th:insert="~{/admin/css/header :: nav}"></div>
-<div align="center">
+<nav th:replace="~{/admin/layouts/header :: nav}"></nav>
+<div align="center" style="margin-top:50px">
     <form>
         <div>
             <input type="text" name="settingname" placeholder="세팅이름">

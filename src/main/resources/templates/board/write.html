@@ -65,7 +65,7 @@
     </script>
 </head>
 <body>
-<div th:insert="~{/css/header :: nav}"></div>
+<nav th:replace="~{/layouts/header :: nav}"></nav>
 <form action="/board/write_proc" onsubmit="return boardcheck()" enctype="multipart/form-data" method="post">
     <table align="center" style="margin-top:50px">
       <!--  <tr>
@@ -108,6 +108,6 @@
         </tr>
     </table>
 </form>
-<div th:insert="~{/css/footer :: footer}"></div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>
 </html>

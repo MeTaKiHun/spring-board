@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:insert="~{/admin/css/header :: nav}"></div>
+<div th:replace="~{/admin/layouts/header :: nav}"></div>
 <div align="center">
     <h1 style="margin-top:50px">boardlist</h1>
     <div th:each="c:${notice}" >

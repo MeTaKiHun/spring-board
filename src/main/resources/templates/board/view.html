@@ -8,7 +8,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:insert="~{/css/header :: nav}"></div>
+<nav th:replace="~{/layouts/header :: nav}"></nav>
 <form id="boardForm">
     <table align="center" style="margin-top:50px">
         <Tr>
@@ -185,6 +185,6 @@
           }
     </script>
 </div>
-<div th:insert="~{/css/footer :: footer}"></div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>
 </html>

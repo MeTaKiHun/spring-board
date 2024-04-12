@@ -2,32 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- 부트스트랩 CDN 링크 -->
 </head>
 <body>
-<div th:insert="~{/css/header :: nav}"></div>
-<div align="center"><h1>로그인</h1></div>
-<form method="post" action="/join/login_proc">
-    <div align="center">
-    <table>
-        <tr th:if="${param.error!=null}">
-            <td colspan="2" style="color:red">아이디 비밀번호를 확인하세요</td>
-        </tr>
-        <tr>
-            <td>아이디<input type="text" name="userid" id="userid"></td>
-        </tr>
-        <Tr>
-            <td>비밀번호<input type="password" name="pwd" id="pwd"></td>
-        </Tr>
-        <tr>
-            <td><input type="submit" value="로그인"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value="회원가입" onclick="location.href='/join/join'"></td>
-        </tr>
-    </table>
+<nav th:replace="~{/layouts/header :: nav}"></nav>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">로그인</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/join/login" method="post">
+                        <div th:if="${param.error!=null}"><span style="color:red" th:text="${session.loginerror}"></span></div>
+                        <div class="form-group">
+                            <label for="username">아이디</label>
+                            <input type="text" class="form-control" id="username" th:value="${useriddata}" name="userid" placeholder="아이디를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" class="form-control" id="password" th:value="${pwddata}" name="password" placeholder="비밀번호를 입력하세요">
+                        </div>
+
+                        <div style="margin-top:20px">
+                        <button type="submit" class="btn btn-primary btn-block" >로그인</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="location.href='/join/join'">회원가입</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</form>
-<div th:insert="~{/css/footer :: footer}"></div>
+</div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>
 </html>

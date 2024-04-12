@@ -5,7 +5,7 @@
     <title>수정</title>
 </head>
 <body>
-<div th:insert="~{/css/header :: nav}"></div>
+<nav th:replace="~{/layouts/header :: nav}"></nav>
 <script>
     function addFileInput() {
          var fileInputs = document.querySelectorAll('input[type="file"]');
@@ -100,6 +100,6 @@
         </tr>
     </table>
 </form>
-<div th:insert="~{/css/footer :: footer}"></div>
+<footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>
 </html>
