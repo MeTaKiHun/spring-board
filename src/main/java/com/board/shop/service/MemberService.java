@@ -3,11 +3,14 @@ package com.board.shop.service;
 import com.board.shop.DTO.MemberDTO;
 import com.board.shop.Entity.MemberEntity;
 import com.board.shop.Repository.MemberRepository;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.util.Objects;
+import java.lang.reflect.Field;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +24,32 @@ public class MemberService {
             MemberEntity memberEntity = dto.toEntity();
             memberRepository.save(memberEntity);
     }
-    public int joincheck(MemberDTO dto,Model model) {
+
+    public int joinCheck(MemberDTO dto, Model model) {
+        // dto 객체의 클래스로부터 모든 필드를 가져옴
+        Field[] fields = dto.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+            if (field.isAnnotationPresent(NotBlank.class)) {
+                NotBlank notBlank = field.getAnnotation(NotBlank.class);
+                System.out.println(field.getName() + " : " + notBlank.message());
+                model.addAttribute(field.getName()+"error",notBlank.message());
+            }else if (field.isAnnotationPresent(Email.class)) {
+                Email email = field.getAnnotation(Email.class);
+                System.out.println(field.getName() + " : " + email.message());
+                model.addAttribute(field.getName()+"error",email.message());
+            }else if (field.isAnnotationPresent(Pattern.class)) {
+                Pattern pattern = field.getAnnotation(Pattern.class);
+                System.out.println(field.getName() + " : " + pattern.message());
+                model.addAttribute(field.getName()+"error",pattern.message());
+            }
+        }
+        return 0;
+    }
+
+
+/*    public int joincheck(MemberDTO dto,Model model) {
         int i = 0;
         String messege = "";
         if (dto.getUserid() == null) {
@@ -91,7 +119,7 @@ public class MemberService {
         System.out.println("dto = " + dto);
             model.addAttribute("formdata", dto);
         return i;
-    }
+    }*/
 
 
     public void delete(Long idx){

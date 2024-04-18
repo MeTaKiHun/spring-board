@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -60,9 +62,15 @@ public class AdminController {
         model.addAttribute("preface",adminService.prefeceall());
         return "/admin/preface";}
 
-    @GetMapping("/preface_proc")
+    @PostMapping("/preface")
     public String prefacesave(PrefaceDTO prefaceDTO){
         adminService.prefacesave(prefaceDTO);
+        return "redirect:/admin/preface";
+    }
+
+    @GetMapping("/preface_del")
+    public String prefacedel(@RequestParam("prefaceIdx") Long prefaceIdx){
+        adminService.prefacedel(prefaceIdx);
         return "redirect:/admin/preface";
     }
 }

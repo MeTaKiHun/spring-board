@@ -37,6 +37,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/join/**").permitAll()
+                        .requestMatchers("/resources/**").permitAll()
                         .requestMatchers("/main/**").hasAnyRole("3", "2","1")
                         .requestMatchers("/board/**").hasAnyRole("3", "2","1")
                         .requestMatchers("/vip/**").hasAnyRole("3", "2")

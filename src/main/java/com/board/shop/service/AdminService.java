@@ -41,9 +41,14 @@ public class AdminService {
     }
 
     public void prefacesave(PrefaceDTO prefaceDTO) {
-        prefaceRepository.save(prefaceDTO.toEntity());
+        if(prefaceDTO.getPrefacename()!=null) {
+            prefaceRepository.save(prefaceDTO.toEntity());
+        }
     }
 
+    public void prefacedel(Long prefaceIdx){
+        prefaceRepository.delete(prefaceRepository.findByPrefaceIdx(prefaceIdx));
+    }
     public List<PrefeceEntity> prefeceall() {
         return prefaceRepository.findAll(Sort.by(Sort.Direction.DESC, "prefaceIdx"));
     }

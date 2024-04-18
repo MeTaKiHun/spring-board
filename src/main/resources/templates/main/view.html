@@ -8,31 +8,33 @@
 <nav th:replace="~{/layouts/header.html :: nav}"></nav>
 <div align="center" style="margin-top:50px"><h1>마이페이지</h1></div>
 <form id="boardForm">
-    <table align="center" >
+    <!-- 부트스트랩 테이블 클래스 적용 -->
+    <table class="table table-bordered table-hover" align="center" style="width: 40%; margin: auto;">
+        <tbody>
         <tr>
-            <td>아이디</td>
+            <th scope="row">아이디</th>
             <td><span th:text="${user.getUsername()}"></span></td>
         </tr>
         <tr>
-            <td>이름</td>
+            <th scope="row">이름</th>
             <td th:text="${user.getName()}"></td>
         </tr>
         <tr>
-            <td>이메일</td>
+            <th scope="row">이메일</th>
             <td th:text="${user.getEmail()}"></td>
         </tr>
         <tr>
-            <td>회원등급</td>
+            <th scope="row">회원등급</th>
             <td th:text="${user.getGrade()}"></td>
         </tr>
-        <tr>
-            <td colspan="2">
-                <input type="button" value="회원정보수정" onclick="location.href='/main/modify'">
-                <input type="button" value="회원탈퇴" onclick="location.href='/main/delete'">
-                <input type="button" value="메인으로" onclick="location.href='/main/main'">
-            </td>
-        </tr>
+        </tbody>
     </table>
+    <!-- 부트스트랩 버튼 클래스 적용 -->
+    <div class="text-center mt-3">
+        <a href="/main/modify" class="btn btn-primary">회원정보수정</a>
+        <a href="/main/delete" class="btn btn-danger">회원탈퇴</a>
+        <a href="/main/main" class="btn btn-secondary">메인으로</a>
+    </div>
 </form>
 <footer th:replace="~{/layouts/footer :: footer}"></footer>
 </body>

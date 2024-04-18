@@ -17,12 +17,14 @@ public class PrefaceDTO {
 
     private String prefacename;
 
-    private String prefacegrade;
+    private Long writegrade;
 
+    private Long readgrade;
     public PrefeceEntity toEntity(){
         return PrefeceEntity.builder()
                 .prefaceIdx(prefaceIdx)
-                .prefacegrade(prefacegrade)
+                .writegrade(writegrade)
+                .readgrade(readgrade)
                 .prefacename(prefacename)
                 .build();
     }

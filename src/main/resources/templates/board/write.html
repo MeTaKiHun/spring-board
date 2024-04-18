@@ -52,12 +52,12 @@
              updateFileProgress(); // 파일이 추가되거나 삭제될 때마다 진행률 업데이트
         }
         function boardcheck(){
-         if (name == "") {
-                alert("이름을 입력해주세요.");
+         if (write.title.value == "") {
+                alert("제목을 입력해주세요.");
                 return false;
             }
-            if (email == "") {
-                alert("이메일을 입력해주세요.");
+            if (write.content.value == "") {
+                alert("내용을 입력해주세요.");
                 return false;
             }
             return true;
@@ -66,30 +66,26 @@
 </head>
 <body>
 <nav th:replace="~{/layouts/header :: nav}"></nav>
-<form action="/board/write_proc" onsubmit="return boardcheck()" enctype="multipart/form-data" method="post">
+<form action="/board/write_proc" onsubmit="return boardcheck()" id="write" enctype="multipart/form-data" method="post">
     <table align="center" style="margin-top:50px">
-      <!--  <tr>
-            <td>카테고리</td>
-        </tr>-->
         <tr>
             <td>이름</td>
             <td><span th:text="${user.name}"></span><input type="hidden" th:value="${user.idx}" name="idx"></td>
         </tr>
         <tr>
-            <td>머리말</td>
+            <td>분류</td>
             <td><select name="prefaceIdx">
                 <option th:each="pre:${preface}" th:value="${pre.prefaceIdx}"><span th:text="${pre.prefacename}"></span></option>
             </select>
             </td>
         </tr>
-
         <tr>
             <td>제목</td>
-            <td><input type="text" placeholder="제목을 입력하세요." name="title"></td>
+            <td><input type="text" placeholder="제목을 입력하세요." id="title" name="title"></td>
         </tr>
         <tr>
             <td>내용</td>
-            <td><textarea name="content" placeholder="내용을 입력하세요"></textarea></td>
+            <td><textarea name="content" id="content" placeholder="내용을 입력하세요"></textarea></td>
         </tr>
         <tr>
             <td colspan="2" align="center">첨부파일 <input type="button" value="추가" onclick="addFileInput()"></td>

@@ -76,41 +76,41 @@
                     <h3 class="text-center">회원가입</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="post">
                         <div class="form-group">
                             <label for="userid">아이디</label>
                             <input type="text" class="form-control" id="userid" name="userid" placeholder="아이디를 입력하세요">
                         </div>
                         <div th:if="${iderror!=null}">
-                            <span class="message" colspan="2" th:text="${iderror}"></span>
+                            <span class="message" colspan="2" th:text="${error}"></span>
                         </div>
                         <div class="form-group">
                             <label for="password">비밀번호</label>
                             <input type="password" class="form-control" id="password" name="pwd" placeholder="비밀번호를 입력하세요">
                         </div>
                         <div th:if="${pwderror!=null}">
-                            <span class="message" colspan="2" th:text="${pwderror}"></span>
+                            <span class="message" colspan="2" th:text="${error.message()}"></span>
                         </div>
                         <div class="form-group">
                             <label for="confirm_password">비밀번호 확인</label>
                             <input type="password" class="form-control" id="confirm_password" name="pwd1" placeholder="비밀번호를 다시 입력하세요">
                         </div>
                         <div th:if="${pwd1error!=null}">
-                            <span class="message" colspan="2" th:text="${pwd1error}"></span>
+                            <span class="message" colspan="2" th:text="${error.message()}"></span>
                         </div>
                         <div class="form-group">
                             <label for="username">이름</label>
                             <input type="text" class="form-control" id="username" name="name" placeholder="이름를 입력하세요">
                         </div>
                         <div th:if="${nameerror!=null}">
-                            <span class="message" colspan="2" th:text="${nameerror}"></span>
+                            <span class="message" colspan="2" th:text="${error.message()}"></span>
                         </div>
                         <div class="form-group">
                             <label for="email">이메일 주소</label>
                             <input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력하세요">
                         </div>
                         <div th:if="${emailerror!=null}">
-                            <span class="message" colspan="2" th:text="${emailerror}"></span>
+                            <span class="message" colspan="2" th:text="${error.message()}"></span>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">가입하기</button>
                     </form>

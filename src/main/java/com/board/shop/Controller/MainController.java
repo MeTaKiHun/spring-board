@@ -54,7 +54,7 @@ public class MainController {
         return "main/modify";
     }
 
-    @GetMapping("/main/modify_proc") // 수정 정보 저장
+    @PostMapping("/main/modify_proc") // 수정 정보 저장
     public String modifyproc(MemberDTO dto) {
         memberService.update(dto);
         return "redirect:/logout";
@@ -74,24 +74,15 @@ public class MainController {
 
     @GetMapping("/join/join")
     public String join(MemberDTO dto,Model model) {
-        int i = memberService.joincheck(dto,model);
-        if (i==5) {
+        memberService.joinCheck(dto,model);
             return "join/join";
-        }else{
-            return "join/join";
-        }
     }
 
     @PostMapping("/join/join")
     public String joincheck(MemberDTO dto,Model model) {
-        int i = memberService.joincheck(dto,model);
-        if(i==5){
-            memberService.joinsave(dto);
-            return "redirect:/join/login";
-        }else {
-            model.addAttribute("formdata",dto);
+        memberService.joinCheck(dto,model);
+           model.addAttribute("formdata",dto);
             return "join/join";
-        }
     }
 
     @GetMapping("/admin/list")

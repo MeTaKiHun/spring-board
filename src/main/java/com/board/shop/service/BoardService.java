@@ -2,8 +2,14 @@ package com.board.shop.service;
 
 import com.board.shop.DTO.BoardDTO;
 import com.board.shop.DTO.FileDTO;
-import com.board.shop.Entity.*;
-import com.board.shop.Repository.*;
+import com.board.shop.Entity.BoardEntity;
+import com.board.shop.Entity.MemberEntity;
+import com.board.shop.Entity.NoticeEntity;
+import com.board.shop.Entity.PrefeceEntity;
+import com.board.shop.Repository.BoardRepository;
+import com.board.shop.Repository.MemberRepository;
+import com.board.shop.Repository.NoticeRepository;
+import com.board.shop.Repository.PrefaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

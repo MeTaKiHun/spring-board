@@ -27,6 +27,10 @@ public class PrefeceEntity {
     private String prefacename;
 
     @Setter
-    @Column(name = "prefacegrade")
-    private String prefacegrade;
+    @Column(name = "writegrade")
+    private Long writegrade;
+
+    @Setter
+    @Column(name = "readgrade")
+    private Long readgrade;
 }

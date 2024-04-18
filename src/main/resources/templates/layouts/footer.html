@@ -6,7 +6,37 @@
 </head>
 <body>
 <footer th:fragment="footer">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        /* 부모 요소의 세로 크기 설정 */
+        .img-parent {
+            height: 200px; /* 원하는 높이로 설정 */
+        }
+
+        /* 이미지 세로 크기 100% 설정 */
+        .img-full-height {
+            height: 100% !important; /* 세로 크기를 100%로 고정 */
+            width: auto !important; /* 너비를 자동으로 조절하여 비율 유지 */
+        }
+    </style>
+    <div class="card mb-3" style="max-width: 100%;margin-top:20px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/resources/catfooter.png" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body d-flex flex-column gap-3">
+                    <h5 class="card-title">게시판 프로젝트</h5>
+                    <p class="card-text">@2024.게시판 프로젝트</p>
+                    <p class="card-text">대표자: 성기훈 | 주소: 대구 서구</p>
+                    <p class="card-text">사업자 등록번호:123-45-67890 | 연락처: 010-1234-4567</p>
+                    <p class="card-text">대표 이메일: ddd@naver.com</p>
+                    <p class="card-text">개인정보 처리방침 | 이용약관</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </footer>
 </body>
 </html>
