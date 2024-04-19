@@ -6,6 +6,7 @@ import com.board.shop.DTO.MyUserDetails;
 import com.board.shop.Entity.BoardEntity;
 import com.board.shop.service.BoardService;
 import com.board.shop.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -73,16 +75,18 @@ public class MainController {
     }
 
     @GetMapping("/join/join")
-    public String join(MemberDTO dto,Model model) {
-        memberService.joinCheck(dto,model);
-            return "join/join";
+    public String join() {
+        return "join/join";
     }
 
     @PostMapping("/join/join")
-    public String joincheck(MemberDTO dto,Model model) {
-        memberService.joinCheck(dto,model);
-           model.addAttribute("formdata",dto);
-            return "join/join";
+    public String joincheck(@Valid MemberDTO dto, BindingResult bindingResult, Model model) {
+        int i = memberService.joinCheck(model,bindingResult);
+        if(i==0) {
+            return "redirect:/join/login";
+        }else{
+            return "/join/join";
+        }
     }
 
     @GetMapping("/admin/list")

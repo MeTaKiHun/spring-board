@@ -12,7 +12,6 @@ import com.board.shop.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -41,21 +40,21 @@ public class BoardController {
                         @PageableDefault(page=0,size = 5,sort ="boardIdx",direction = Sort.Direction.DESC) Pageable pageable,
                         @RequestParam(name= "bcidx",required = false, defaultValue = "1")Long bcidx,
                         @RequestParam(name="search",required = false)String search,
-                        @RequestParam(name="searchtype",required = false)String searchtype,
-                        @RequestParam(name= "size",required = false)String size) {
+                        @RequestParam(name="searchtype",required = false)String searchtype/*,
+                        @RequestParam(name= "size",required = false)int size*/) {
         List<NoticeEntity> notice =adminService.boardfind();
         model.addAttribute("notice", notice);
         session.setAttribute("bcidx",bcidx);
         Page<BoardEntity> result= boardService.board(bcidx,pageable);
         boardService.page(result,model,bcidx,search,searchtype);
-        if(search!=null&&searchtype!="none"){
+        if(search!=null&&searchtype !="none"){
             boardService.search(search, pageable, searchtype);
         }
-        if(size!=null) {
+       /* if(size!=null) {
             if (Integer.parseInt(size) >= 5) {
-                pageable = PageRequest.of(pageable.getPageNumber(), Integer.parseInt(size), pageable.getSort());
+                pageable = PageRequest.of(pageable.getPageNumber(), size, pageable.getSort());
             }
-        }
+        }*/
         return "/board/board";
     }
 

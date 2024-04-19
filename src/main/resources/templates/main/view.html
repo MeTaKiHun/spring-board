@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
 <nav th:replace="~{/layouts/header.html :: nav}"></nav>
 <div align="center" style="margin-top:50px"><h1>마이페이지</h1></div>
 <form id="boardForm">
-    <!-- 부트스트랩 테이블 클래스 적용 -->
     <table class="table table-bordered table-hover" align="center" style="width: 40%; margin: auto;">
         <tbody>
         <tr>
@@ -29,13 +29,23 @@
         </tr>
         </tbody>
     </table>
-    <!-- 부트스트랩 버튼 클래스 적용 -->
     <div class="text-center mt-3">
         <a href="/main/modify" class="btn btn-primary">회원정보수정</a>
-        <a href="/main/delete" class="btn btn-danger">회원탈퇴</a>
+        <a href="/main/delete" class="btn btn-danger" onclick="return deletebut()">회원탈퇴</a>
         <a href="/main/main" class="btn btn-secondary">메인으로</a>
     </div>
 </form>
 <footer th:replace="~{/layouts/footer :: footer}"></footer>
+<script>
+    function deletebut(){
+        if(confirm("회원탈퇴 하시겠습니까?")){
+            alert("회원탈퇴 완료되었습니다.");
+            return true;
+        }else{
+            alert("회원탈퇴가 취소되었습니다.");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

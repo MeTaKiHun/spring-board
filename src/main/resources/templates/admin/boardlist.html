@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- 부트스트랩 CSS 추가 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div th:replace="~{/admin/layouts/header :: nav}"></div>
-<div align="center">
-    <h1 style="margin-top:50px">boardlist</h1>
+<nav th:replace="~{/admin/layouts/header :: nav}"></nav>
+<div class="container text-center"> <!-- bootstrap 클래스 추가 -->
+    <h1 class="mt-5">boardlist</h1> <!-- margin-top 클래스 사용 -->
     <div th:each="c:${notice}" >
-        <table>
+        <table class="table"> <!-- bootstrap 테이블 클래스 추가 -->
+            <tbody>
             <tr>
-                <td><a th:href="@{'/board/board?bcidx='+${c.noticeIdx}}"><span th:text="${c.noticename}"></span></a></td>
+                <td><a th:href="@{'/board/board?bcidx='+${c.noticeIdx}}" class="text-decoration-none"><span th:text="${c.noticename}"></span></a></td>
                 <td><button type="button" class="btn btn-danger" th:onclick="'javascript:location.href=\'/admin/boarddel?bcidx=' + ${c.noticeIdx} + '\''">삭제</button></td>
             </tr>
+            </tbody>
         </table>
     </div>
+    <!-- 버튼에 부트스트랩 클래스 적용 -->
     <button type="button" class="btn btn-primary" onclick="location.href='/admin/preface'">머리말 만들기</button>
     <button type="button" class="btn btn-primary" onclick="location.href='/admin/boardcreate'">게시판 만들기</button>
     <button type="button" class="btn btn-primary" onclick="location.href='/admin/main'">관리자 메인</button>
 </div>
+<!-- 부트스트랩 JS 추가 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<footer th:replace="~{/admin/layouts/footer :: footer}"></footer>
 </body>
 </html>
