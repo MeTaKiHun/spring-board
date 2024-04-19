@@ -59,7 +59,7 @@ public class AdminController {
 
     @GetMapping("/preface")
     public String preface(Model model){
-        model.addAttribute("preface",adminService.prefeceall());
+        model.addAttribute("preface",adminService.prefaceall());
         return "/admin/preface";}
 
     @PostMapping("/preface")

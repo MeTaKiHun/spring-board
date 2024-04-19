@@ -6,7 +6,7 @@ import com.board.shop.DTO.PrefaceDTO;
 import com.board.shop.Entity.MemberEntity;
 import com.board.shop.Entity.NoticeEntity;
 import com.board.shop.Entity.NoticeSettingEntity;
-import com.board.shop.Entity.PrefeceEntity;
+import com.board.shop.Entity.PrefaceEntity;
 import com.board.shop.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -49,7 +49,7 @@ public class AdminService {
     public void prefacedel(Long prefaceIdx){
         prefaceRepository.delete(prefaceRepository.findByPrefaceIdx(prefaceIdx));
     }
-    public List<PrefeceEntity> prefeceall() {
+    public List<PrefaceEntity> prefaceall() {
         return prefaceRepository.findAll(Sort.by(Sort.Direction.DESC, "prefaceIdx"));
     }
 

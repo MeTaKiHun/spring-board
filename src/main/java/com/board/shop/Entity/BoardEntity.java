@@ -31,7 +31,7 @@ public class BoardEntity extends BaseEntity {
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="prefaceIdx")
-    private PrefeceEntity preface;
+    private PrefaceEntity preface;
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)

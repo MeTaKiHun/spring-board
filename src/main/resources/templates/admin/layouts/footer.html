@@ -6,8 +6,24 @@
 </head>
 <body>
 <footer th:fragment="footer">
+    <style>
+        /* 부모 요소의 세로 크기 설정 */
+        .img-parent {
+            height: 200px; /* 원하는 높이로 설정 */
+        }
+
+        /* 이미지 세로 크기 100% 설정 */
+        .img-full-height {
+            height: 100% !important; /* 세로 크기를 100%로 고정 */
+            width: auto !important; /* 너비를 자동으로 조절하여 비율 유지 */
+        }
+    </style>
+    <div class="card mb-3" style="max-width: 100%;margin-top:20px">
+                <div class="card-body d-flex flex-column gap-3">
+                    <h5 class="card-title">관리자페이지</h5>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <h1>푸터푸터</h1>
 </footer>
 </body>
 </html>

@@ -5,7 +5,7 @@ import com.board.shop.DTO.FileDTO;
 import com.board.shop.Entity.BoardEntity;
 import com.board.shop.Entity.MemberEntity;
 import com.board.shop.Entity.NoticeEntity;
-import com.board.shop.Entity.PrefeceEntity;
+import com.board.shop.Entity.PrefaceEntity;
 import com.board.shop.Repository.BoardRepository;
 import com.board.shop.Repository.MemberRepository;
 import com.board.shop.Repository.NoticeRepository;
@@ -56,10 +56,10 @@ public class BoardService {
     public void boardSave(BoardDTO bdto, Long idx, FileDTO fdto, List<MultipartFile> files, Long bcidx) throws Exception {
         MemberEntity memberEntity = memberRepository.findByIdx(idx);
         BoardEntity boardEntity = bdto.toEntity();
-        PrefeceEntity prefece = prefaceRepository.findByPrefaceIdx(bdto.getPrefaceIdx());
+        PrefaceEntity preface = prefaceRepository.findByPrefaceIdx(bdto.getPrefaceIdx());
         NoticeEntity notice = noticeRepository.findByNoticeIdx(bcidx);
         boardEntity.setNotice(notice);
-        boardEntity.setPreface(prefece);
+        boardEntity.setPreface(preface);
         boardEntity.setMember(memberEntity);
         if(files.size()>=0) {
             saveFile(boardEntity, fdto, files);

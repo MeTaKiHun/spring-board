@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Entity
 @Builder
-public class PrefeceEntity {
+public class PrefaceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "a_board_preseq")

@@ -3,14 +3,13 @@ package com.board.shop.service;
 import com.board.shop.DTO.MemberDTO;
 import com.board.shop.Entity.MemberEntity;
 import com.board.shop.Repository.MemberRepository;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
-import java.lang.reflect.Field;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,27 +24,22 @@ public class MemberService {
             memberRepository.save(memberEntity);
     }
 
-    public int joinCheck(MemberDTO dto, Model model) {
-        // dto 객체의 클래스로부터 모든 필드를 가져옴
-        Field[] fields = dto.getClass().getDeclaredFields();
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-            if (field.isAnnotationPresent(NotBlank.class)) {
-                NotBlank notBlank = field.getAnnotation(NotBlank.class);
-                System.out.println(field.getName() + " : " + notBlank.message());
-                model.addAttribute(field.getName()+"error",notBlank.message());
-            }else if (field.isAnnotationPresent(Email.class)) {
-                Email email = field.getAnnotation(Email.class);
-                System.out.println(field.getName() + " : " + email.message());
-                model.addAttribute(field.getName()+"error",email.message());
-            }else if (field.isAnnotationPresent(Pattern.class)) {
-                Pattern pattern = field.getAnnotation(Pattern.class);
-                System.out.println(field.getName() + " : " + pattern.message());
-                model.addAttribute(field.getName()+"error",pattern.message());
+    public int joinCheck(Model model, BindingResult bindingResult) {
+        int i = 0;
+        if(bindingResult.hasErrors()|| bindingResult.getErrorCount()!=0){
+            List<FieldError> list = bindingResult.getFieldErrors();
+            for(FieldError error : list){
+                model.addAttribute(error.getField()+"error",error.getDefaultMessage());
             }
         }
-        return 0;
+        return bindingResult.getErrorCount();
+    }
+    public void joinok(int o,Model model,MemberDTO dto){
+        if(o== 5){
+            memberRepository.save(dto.toEntity());
+        }else{
+            model.addAttribute("formdata",dto);
+        }
     }
 
 
