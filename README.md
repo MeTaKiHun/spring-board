@@ -15,3 +15,7 @@
 ![성기훈_포트폴리오_pages-to-jpg-0014](https://github.com/MeTaKiHun/spring-board/assets/165864808/ef13fc24-af61-4b71-a753-a069573997ee)
 ![성기훈_포트폴리오_page-0015](https://github.com/MeTaKiHun/spring-board/assets/165864808/cfd0d9c6-f3d2-4340-8e5d-ccf8426d5ee7)
 
+로그인화면
+![로그인 전체](https://github.com/MeTaKiHun/spring-board/assets/165864808/50b1f3b3-aadc-4269-b982-14394b619d08)
+회원가입화면
+![회원가입전체](https://github.com/MeTaKiHun/spring-board/assets/165864808/70042870-8eda-4caa-a6cd-1eda7115803e)
