@@ -29,14 +29,14 @@
                 </thead>
                 <tbody>
                 <tr th:each="notice:${boardnotice}" class="fw-bold">
-                    <td><span th:text="${notice.boardIdx}"></span></td>
+                    <td></td>
                     <td>공지사항</td>
                     <td><a th:href="@{/board/view(boardIdx=${notice.boardIdx})}"><span th:text="${notice.title}"></span></a></td>
                     <td><span th:text="${notice.member.name}"></span></td>
                 </tr>
                 <tr th:each="board,index:${board}" th:if="${board != null}">
                     <td><span th:text="${number-index.index-pagesize}"></span></td>
-                    <td><span th:text="${board.preface.prefacename}"></span></td>
+                    <td><span th:if="${board.preface.prefacename!=null}" th:text="${board.preface.prefacename}"></span></td>
                     <td><a th:href="@{/board/view(boardIdx=${board.boardIdx})}"><span th:text="${board.title}"></span></a></td>
                     <td><span th:text="${board.member.name}"></span></td>
                 </tr>

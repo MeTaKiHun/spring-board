@@ -75,6 +75,7 @@
         <tr>
             <td>분류</td>
             <td><select name="prefaceIdx">
+                <option value=""><span>===선택===</span></option>
                 <option th:each="pre:${preface}" th:value="${pre.prefaceIdx}"><span th:text="${pre.prefacename}"></span></option>
             </select>
             </td>

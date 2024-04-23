@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
-    @Query(value = "SELECT distinct b FROM BoardEntity b LEFT JOIN FETCH b.notice n LEFT JOIN FETCH b.member m JOIN FETCH b.preface p WHERE n.noticeIdx = :noticeIdx")
+    @Query(value = "SELECT distinct b FROM BoardEntity b LEFT JOIN FETCH b.notice n LEFT JOIN FETCH b.member m LEFT JOIN FETCH b.preface p WHERE n.noticeIdx = :noticeIdx")
     Page<BoardEntity> findByNotice(@Param("noticeIdx")Long idx,Pageable pageable);
 
     @Query(value = "SELECT b FROM BoardEntity b LEFT JOIN FETCH b.notice n LEFT JOIN FETCH b.member m WHERE n.noticeIdx = :noticeIdx")
