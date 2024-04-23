@@ -13,4 +13,5 @@
 ![성기훈_포트폴리오_pages-to-jpg-0012](https://github.com/MeTaKiHun/spring-board/assets/165864808/63c9967f-26ad-4e90-99e2-c6cd6bcd4c7e)
 ![성기훈_포트폴리오_pages-to-jpg-0013](https://github.com/MeTaKiHun/spring-board/assets/165864808/a460a979-c9d6-473f-8d8f-0d5f61d89e4d)
 ![성기훈_포트폴리오_pages-to-jpg-0014](https://github.com/MeTaKiHun/spring-board/assets/165864808/ef13fc24-af61-4b71-a753-a069573997ee)
-![성기훈_포트폴리오_pages-to-jpg-0015](https://github.com/MeTaKiHun/spring-board/assets/165864808/ec933c11-e357-4632-9be3-0d6ca48ce49f)
+![성기훈_포트폴리오_page-0015](https://github.com/MeTaKiHun/spring-board/assets/165864808/cfd0d9c6-f3d2-4340-8e5d-ccf8426d5ee7)
+
